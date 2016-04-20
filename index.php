@@ -1,5 +1,37 @@
-<html>
+<?php	
 
+		if (isset($_COOKIE["user"])) {
+		$message =$_COOKIE["user"];
+		echo "<script type='text/javascript'>alert('Welcome $message');</script>";
+		}
+		else{
+			$cookie_name = "user";
+			$cookie_value = $_POST["name"];
+			setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
+
+			$conn=mysqli_connect("localhost","sumant");
+			if (!$conn) {
+ 			   	die("Connection failed: " . mysqli_connect_error());
+			}
+
+			mysqli_select_db($conn,"mydb");
+			$name=$_POST["name"];
+			$email=$_POST["email"];
+			$sql="INSERT INTO details Values('".$name."','".$email."')";
+			if (mysqli_query($conn, $sql)) {
+   			} 
+   			else {
+    		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			}
+			mysqli_close($conn);
+			header("Location: fill.php");
+			die();
+		
+		}
+
+?>
+
+<html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -26,7 +58,7 @@
 					</div>
 				<div class="col-md-3">
 				<p style="margin-bottom:0px">+91-9953448445</p>
-				<p style="margin-bottom:10px">sumantahney@gmail.com</p>
+				<p style="margin-bottom:10px">sumantsahney@gmail.com</p>
 				<p><a href="https://in.linkedin.com/in/sumantsahney"><img src="images/linkedln.png" style="height:30px; width:30px"></a> <a href="https://github.com/sumantsahney"><img src="images/git.png" style="height:30px; width:60px"></a><a href="data/sumant.pdf"> <img src="images/pdf.png" style="height:30px; width:30px"></a></p>
 
 				</div>
@@ -155,7 +187,7 @@ were placed and all the transactions and scheduling of the orders occurred.</p>
 					</div>
 					<div class="col-md-10 col-lg-10 col-sm-8 col-xs-12">
 					<div id="details">	
-				<p style="margin-top:100px">sumantahney@gmail.com</p>
+				<p style="margin-top:100px">sumantsahney@gmail.com</p>
 				<p>+91-9953448445</p>
 
 				<p><a href="https://in.linkedin.com/in/sumantsahney"><img src="images/linkedln.png" style="height:60px; width:60px"></a> <a href="https://github.com/sumantsahney"><img src="images/git.png" style="height:60px; width:120px"></a><a href="data/sumant.pdf"> <img src="images/pdf.png" style="height:60px; width:60px"></a></p>
